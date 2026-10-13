@@ -18,4 +18,3 @@ await Bun.write(join(src, "animations.generated.ts"), renderModule(compact));
 console.log(
   `animations.generated.ts: ${Object.keys(compact.tracks).length} tracks, ${compact.directions.length} directions`,
 );
-
