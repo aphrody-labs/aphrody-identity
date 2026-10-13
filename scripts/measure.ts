@@ -6,6 +6,7 @@
 //   bun scripts/measure.ts [--wasm path/to/pet_wasm.wasm] [--json]
 import { brotliCompressSync, constants } from "node:zlib";
 import { join } from "node:path";
+import { findWorkspaceRoot } from "@aphrody/paths";
 import { resolve as resolveTick } from "../src/runtime";
 import type { WebTrack } from "../src/runtime";
 
@@ -58,7 +59,7 @@ const fixture: {
     tracks: Record<string, WebTrack>;
     ticks: [number, string, string | null, number | null, number | null][];
   }[];
-} = await Bun.file(join(root, "../../../crates/ui/identity/tests/fixtures/parite-web.json")).json();
+} = await Bun.file(join(findWorkspaceRoot(), "crates/ui/identity/tests/fixtures/parite-web.json")).json();
 const aphrody = fixture.cases[0]!;
 
 function tickCost(step: (name: string, t: number) => unknown, n = 1_000_000): number {

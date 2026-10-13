@@ -9,10 +9,11 @@
 // src/pet.test.ts and src/runtime.test.ts fail when a generated file and the crate disagree.
 //   bun scripts/generate.ts
 import { join } from "node:path";
+import { findWorkspaceRoot } from "@aphrody/paths";
 import { compactPet, renderModule, renderWebModule } from "../src/compact";
 import { webSourceTarget } from "./web-source";
 
-const assets = join(import.meta.dir, "../../../../crates/ui/identity/assets/aphrody");
+const assets = join(findWorkspaceRoot(), "crates/ui/identity/assets/aphrody");
 const src = join(import.meta.dir, "../src");
 
 const compact = compactPet(await Bun.file(join(assets, "animations.json")).json());
