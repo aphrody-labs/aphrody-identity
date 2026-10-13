@@ -4,8 +4,6 @@
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
 import { findWorkspaceRoot } from "@aphrody/paths";
-import { webSourceTarget } from "../scripts/web-source";
-import { renderWebModule } from "./compact";
 import { Ambient, gaze, PET_WEB, resolve, type WebTrack } from "./runtime";
 
 const crate = join(findWorkspaceRoot(), "crates/ui/identity");
@@ -83,15 +81,6 @@ describe("parity with the crate clock", () => {
 });
 
 describe("generated data", () => {
-  test("web.generated.ts matches the crate's web.json (run `bun run gen`)", async () => {
-    const target = webSourceTarget(import.meta.dir);
-    const web = await Bun.file(target.webJson).json();
-    const generated = await Bun.file(target.generated).text();
-    const header = renderWebModule(web, target.runtimeImport).split("export const PET_WEB")[0]!;
-    expect(generated.startsWith(header)).toBe(true);
-    expect(PET_WEB).toEqual(web);
-  });
-
   test("states carry Codex lifetimes and labels", () => {
     expect(PET_WEB.states.running).toEqual({ lifetimeMs: 180_000, label: "Running" });
     expect(PET_WEB.states.waiting?.label).toBe("Needs input");

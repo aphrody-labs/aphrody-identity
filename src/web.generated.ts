@@ -1,2 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-export * from "@aphrody/web-source/integrations/m3/packages/identity/src/web.generated.ts";
+// Consume the canonical runtime data; no generated code crosses repository boundaries.
+import data from "@aphrody/web-source/integrations/crates/ui/identity/assets/aphrody/web.json" with { type: "json" };
+import type { PetWebData } from "./runtime";
+export const PET_WEB = data as unknown as PetWebData;

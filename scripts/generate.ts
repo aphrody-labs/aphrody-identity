@@ -2,16 +2,13 @@
 // Regenerates the pet modules from the canonical package of crates/ui/identity:
 //   src/animations.generated.ts  from assets/aphrody/animations.json (geometry and timing for
 //                                the React component; the 100 KB QA manifest never reaches a bundle)
-//   @aphrody/web-source …/identity/src/web.generated.ts  from the web-source crate's
-//                                assets/aphrody/web.json (Codex-composed tracks, states, gaze
-//                                ring and sprite CSS for <aphrody-pet>; written by
-//                                `aphrody identity pet web`); src/web.generated.ts re-exports it
+// Web tracks are imported directly from @aphrody/web-source's canonical web.json.
+// This generator writes only its own package; Rust exports remain with their owner.
 // src/pet.test.ts and src/runtime.test.ts fail when a generated file and the crate disagree.
 //   bun scripts/generate.ts
 import { join } from "node:path";
 import { findWorkspaceRoot } from "@aphrody/paths";
-import { compactPet, renderModule, renderWebModule } from "../src/compact";
-import { webSourceTarget } from "./web-source";
+import { compactPet, renderModule } from "../src/compact";
 
 const assets = join(findWorkspaceRoot(), "crates/ui/identity/assets/aphrody");
 const src = join(import.meta.dir, "../src");
@@ -22,9 +19,3 @@ console.log(
   `animations.generated.ts: ${Object.keys(compact.tracks).length} tracks, ${compact.directions.length} directions`,
 );
 
-const target = webSourceTarget(src);
-const web = await Bun.file(target.webJson).json();
-await Bun.write(target.generated, renderWebModule(web, target.runtimeImport));
-console.log(
-  `web.generated.ts: ${Object.keys(web.tracks).length} tracks, ${web.directions.length} directions`,
-);

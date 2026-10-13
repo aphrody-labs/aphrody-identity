@@ -47,6 +47,7 @@
     "@aphrody/web-source": "workspace:*"
   },
   "devDependencies": {
+    "@types/bun": "catalog:",
     "@aphrody/paths": "workspace:*",
     "@aphrody/m3": "workspace:*",
     "@types/react": "catalog:",
