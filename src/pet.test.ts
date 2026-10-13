@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
+import { findWorkspaceRoot } from "@aphrody/paths";
 import { compactPet, type RawAnimations, renderModule } from "./compact";
 import { frameAt, gazeFrame, PET, spriteStyle, trackDuration } from "./pet";
 
-const crateJson = join(import.meta.dir, "../../../../crates/ui/identity/assets/aphrody/animations.json");
+const crateJson = join(findWorkspaceRoot(), "crates/ui/identity/assets/aphrody/animations.json");
 
 describe("generated pet data", () => {
   test("matches the crate animations.json (run `bun run gen` after a re-export)", async () => {

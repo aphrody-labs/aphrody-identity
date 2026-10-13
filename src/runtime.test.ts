@@ -3,11 +3,12 @@
 // clock (pets.rs); this file replays every tick through src/runtime.ts and must agree exactly.
 import { describe, expect, test } from "bun:test";
 import { join } from "node:path";
+import { findWorkspaceRoot } from "@aphrody/paths";
 import { webSourceTarget } from "../scripts/web-source";
 import { renderWebModule } from "./compact";
 import { Ambient, gaze, PET_WEB, resolve, type WebTrack } from "./runtime";
 
-const crate = join(import.meta.dir, "../../../../crates/ui/identity");
+const crate = join(findWorkspaceRoot(), "crates/ui/identity");
 
 type TickRow = [number, string, string | null, number | null, number | null];
 interface Fixture {
