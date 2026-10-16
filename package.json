@@ -47,11 +47,11 @@
     "@aphrody/web-source": "workspace:*"
   },
   "devDependencies": {
-    "@types/bun": "catalog:",
     "@aphrody/paths": "workspace:*",
     "@aphrody/m3": "workspace:*",
     "@types/react": "catalog:",
-    "react": "catalog:"
+    "react": "catalog:",
+    "@aphrody/bun-types": "workspace:*"
   },
   "peerDependencies": {
     "react": ">=18.0.0"
